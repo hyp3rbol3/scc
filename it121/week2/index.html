@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pig Latin translator</title>
+</head>
+<body>
+
+<script>
+    phrase = prompt("Enter a phrase");
+    document.write("You entered - ", phrase);
+
+     
+    //checks for illegal strings
+    if (phrase.trim() == "" || phrase.length == 1 || phrase == null){
+        document.write('Your phrase cannot be translated.');
+    } else {
+    //create array of vowels
+    const vowels = ['a', 'e', 'i', 'o', 'u'];
+    
+    //sanitize string
+    phrase = phrase.toLowerCase()
+    
+  //split phrase into words
+    words = phrase.split(' ');
+    
+    words.forEach((word) => {
+    vowels.forEach((vowel) => {
+        if (vowel == word[0]){
+            let index = words.findIndex((element) => (element == word))
+            word += 'way';
+            words[index] = word
+        }
+    });
+    //check for consonants
+    if (vowels.find((vowel) => (vowel == word[0])) == undefined){
+        if (vowels.find((vowel) => (vowel == word[1])) == undefined){
+            let index = words.findIndex((element) => (element == word))
+            word = word.substring(2)+word.substring(0,2);
+            word += 'ay';
+            words[index] = word
+        } else {
+            let index = words.findIndex((element) => (element == word))
+             word = word.substring(1)+word.substring(0,1);
+            word += 'ay';
+            words[index] = word
+        }
+    }})
+    
+    //rejoin words
+    phrase = words.join(' ');
+    
+    //correct capitalization
+    phrase = phrase.substring(0,1).toUpperCase() + phrase.substring(1)
+    
+    document.write(`<br>Your phrase in Pig Latin is: ${phrase}`);}
+    
+
+</script>
+
+</body>
+</html>
